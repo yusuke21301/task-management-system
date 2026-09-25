@@ -6,6 +6,7 @@ C# / WinForms を中心に開発してきた状態から、Webアプリケーシ
 
 ## デモ
 フロントエンドはVercel、APIはRender、DBはNeonへデプロイしており、下記URLから実際に操作できます。
+初回のAPI起動で、数十秒～約1分待つ場合があります。
 
 公開URL：
 https://task-management-system-sigma-seven.vercel.app/
