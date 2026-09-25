@@ -1,5 +1,22 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Visual Studio
+.vs/
+**/.vs/
+
+# .NET build outputs
+**/bin/
+**/obj/
+
+# Visual Studio user settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
 # dependencies
 /node_modules
 /.pnp
