@@ -4,6 +4,12 @@ Next.js + TypeScript + ASP.NET Core Web API + PostgreSQL を使用して作成�
 
 C# / WinForms を中心に開発してきた状態から、Webアプリケーションの基本構成やフロントエンド・バックエンド間のHTTP通信を学ぶことを目的として作成しました。
 
+## デモ
+フロントエンドはVercel、APIはRender、DBはNeonへデプロイしており、下記URLから実際に操作できます。
+
+公開URL：
+https://task-management-system-sigma-seven.vercel.app/
+
 ## 概要
 
 システム全体は次の構成です。
