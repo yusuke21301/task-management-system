@@ -18,13 +18,13 @@ https://task-management-system-sigma-seven.vercel.app/
 ```text
 ブラウザ
    ↓
-Next.js + TypeScript
+Next.js + TypeScript / Vercel
    ↓ HTTP / JSON
-ASP.NET Core Web API
+ASP.NET Core Web API / Render
    ↓
 EF Core
    ↓
-PostgreSQL
+PostgreSQL / Neon
 ```
 
 フロントエンドとバックエンドを分離し、Next.js から ASP.NET Core Web API を呼び出してタスクデータを操作します。
@@ -57,6 +57,7 @@ PostgreSQL
 - Client Components
 - Server Actions
 - `useActionState`
+- Vercel
 
 ### バックエンド
 
@@ -65,10 +66,12 @@ PostgreSQL
 - .NET 10
 - Entity Framework Core
 - Swagger / OpenAPI
+- Render
 
 ### データベース
 
 - PostgreSQL
+- Neon
 
 ### 開発・バージョン管理
 
@@ -77,6 +80,186 @@ PostgreSQL
 - GitHub
 - SourceTree
 - npm
+
+## 技術選定の方針
+
+本プロジェクトでは、これまでの C# 開発経験を活かしつつ、Webアプリケーション開発のフロントエンド・バックエンド・DB・デプロイまで一連の構成を学ぶことを目的として技術を選定しました。
+
+### Next.js
+
+Reactをベースにしながら、ルーティング、サーバー側処理、データ取得、ビルドなど、Webアプリケーションに必要な機能を一つのフレームワークで扱える点から採用しました。
+
+今回は単に画面を作るだけでなく、フロントエンドとバックエンドを分離したWebアプリ全体の構成を学ぶことを目的としていたため、React単体ではなくNext.jsを使用しました。
+
+### TypeScript
+
+JavaScriptに静的型付けを追加できるため、APIとのデータ構造の不一致や型の誤りを開発時に検出しやすい点から採用しました。
+
+これまで主にC#を使用してきたため、型を明示して開発するTypeScriptは既存経験との親和性も高いと考えました。
+
+APIレスポンスについても、以下のように型を定義して扱っています。
+
+```ts
+type Task = {
+  id: number;
+  taskName: string;
+  operatorId: number;
+  operatorName: string;
+  status: number;
+  plannedDate: string | null;
+};
+```
+
+### App Router
+
+Next.jsのルーティングにはApp Routerを使用しました。
+
+ディレクトリ構成とURLを対応させることができ、画面構成を把握しやすい点をメリットと考えました。
+
+例:
+
+```text
+src/app/page.tsx
+→ /
+
+src/app/tasks/new/page.tsx
+→ /tasks/new
+
+src/app/tasks/[id]/edit/page.tsx
+→ /tasks/{id}/edit
+```
+
+また、App RouterではServer Componentを標準として利用できるため、サーバー側でのデータ取得も含めたNext.jsの現在の開発方式を学ぶ目的もあります。
+
+### Server Component / Client Component
+
+データ取得を行う画面はServer Componentを基本とし、ユーザー操作やブラウザAPIが必要な部分のみClient Componentとして実装しました。
+
+例:
+
+```text
+タスク一覧・担当者一覧取得
+→ Server Component
+
+削除確認ダイアログ
+→ Client Component
+```
+
+必要な箇所のみClient Componentにすることで、ブラウザ側へ持たせる処理を必要最小限にしています。
+
+また、APIへのデータ取得をNext.jsサーバー側から行うことで、以下の構成にしています。
+
+```text
+Browser
+↓
+Next.js
+↓
+ASP.NET Core Web API
+```
+
+### Server Actions
+
+タスクの登録・更新・削除にはServer Actionsを使用しました。
+
+フォームからサーバー側の処理を直接呼び出すことができ、クライアント側でAPI呼び出し処理を多く記述せずに、フォーム処理をまとめられる点をメリットと考えました。
+
+また、登録・更新後には、
+
+```ts
+revalidatePath("/");
+redirect("/");
+```
+
+を利用して、
+
+```text
+データ更新
+↓
+一覧の再取得
+↓
+一覧画面へ遷移
+```
+
+という処理を実装しています。
+
+ASP.NET Core Web APIはデータアクセスやバックエンド処理を担当し、Server ActionはNext.js側のフォーム処理や画面更新を担当する構成としています。
+
+### ASP.NET Core Web API
+
+これまでのC#開発経験を活かしながら、Web API開発を学ぶことを目的として採用しました。
+
+フロントエンドとバックエンドをHTTP / JSONで分離することで、WebアプリケーションにおけるAPI通信の基本構成を学習しています。
+
+```text
+Next.js
+↓ HTTP / JSON
+ASP.NET Core Web API
+↓
+PostgreSQL
+```
+
+### PostgreSQL
+
+RDBを使用したWebアプリケーション開発を経験することと、実務でも触れる機会のあるPostgreSQLの理解を深めることを目的として採用しました。
+
+ASP.NET CoreからはEntity Framework Coreを使用してアクセスしています。
+
+### Entity Framework Core
+
+C#のEntityとPostgreSQLのテーブルをマッピングし、C#コードからDB操作を行うために使用しています。
+
+また、公開環境のDB構築ではEF Core Migrationも使用し、DBスキーマの作成・変更をコードとして管理できることを学習しました。
+
+### Vercel / Render / Neon
+
+ローカルPC上だけで動作するアプリではなく、URLを共有するだけで第三者が実際に操作できる状態にすることを目的として、クラウド環境へデプロイしました。
+
+構成は以下の通りです。
+
+```text
+Browser
+   ↓
+Vercel
+Next.js / TypeScript
+   ↓
+Render
+ASP.NET Core Web API
+   ↓
+Neon
+PostgreSQL
+```
+
+- **Vercel**
+  - Next.jsとの親和性が高く、GitHub連携によるデプロイが容易なため採用
+- **Render**
+  - ASP.NET CoreアプリをDockerコンテナとして公開できるため採用
+- **Neon**
+  - PostgreSQLをクラウド上で利用でき、学習・デモ用途として扱いやすいため採用
+
+GitHubの`main`ブランチへのPushを起点として、Vercel / Renderへ変更を反映できる構成にしています。
+
+### 技術選定で意識したこと
+
+本プロジェクトでは、単に新しい技術を使用することではなく、各技術の役割を分離することを意識しました。
+
+```text
+Next.js
+→ UI・画面遷移・フォーム処理
+
+ASP.NET Core Web API
+→ API・バックエンド処理
+
+Entity Framework Core
+→ DBアクセス
+
+PostgreSQL
+→ データ永続化
+
+Vercel / Render / Neon
+→ 公開環境
+```
+
+また、既存のC#経験をASP.NET Coreで活かしながら、新たにNext.js / TypeScriptを学ぶことで、バックエンドからフロントエンドまでWebアプリケーション開発の範囲を広げることを狙いました。
 
 ## ディレクトリ構成
 
