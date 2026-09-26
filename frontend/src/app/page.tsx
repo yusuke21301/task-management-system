@@ -172,7 +172,7 @@ export default async function Home({
         {filteredTasks.length} 件
       </p>
 
-      <div className="task-container">
+      <div className="table-container">
         <table className="task-table">
           <thead>
             <tr>
