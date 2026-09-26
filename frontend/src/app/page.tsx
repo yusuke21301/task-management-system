@@ -172,53 +172,55 @@ export default async function Home({
         {filteredTasks.length} 件
       </p>
 
-      <table className="task-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>タスク名</th>
-            <th>担当者</th>
-            <th>ステータス</th>
-            <th>予定日</th>
-            <th>更新日時</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {filteredTasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.id}</td>
-              <td>{task.taskName}</td>
-              <td>{task.operatorName}</td>
-              <td>
-                {statusLabels[task.status] ?? "不明"}
-              </td>
-              <td>
-                {task.plannedDate?.slice(0, 10).replaceAll("-", "/") ?? "-"}
-              </td>
-              <td>
-                {formatDateTime(task.updatedAt)}
-              </td>
-
-              <td>
-                <div className="actions">
-                  <Link
-                    href={`/tasks/${task.id}/edit`}
-                  >
-                    編集
-                  </Link>
-
-                  <DeleteButton
-                    id={task.id}
-                    taskName={task.taskName}
-                  />
-                </div>
-              </td>
+      <div className="task-contaner">
+        <table className="task-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>タスク名</th>
+              <th>担当者</th>
+              <th>ステータス</th>
+              <th>予定日</th>
+              <th>更新日時</th>
+              <th>操作</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {filteredTasks.map((task) => (
+              <tr key={task.id}>
+                <td>{task.id}</td>
+                <td>{task.taskName}</td>
+                <td>{task.operatorName}</td>
+                <td>
+                  {statusLabels[task.status] ?? "不明"}
+                </td>
+                <td>
+                  {task.plannedDate?.slice(0, 10).replaceAll("-", "/") ?? "-"}
+                </td>
+                <td>
+                  {formatDateTime(task.updatedAt)}
+                </td>
+
+                <td>
+                  <div className="actions">
+                    <Link
+                      href={`/tasks/${task.id}/edit`}
+                    >
+                      編集
+                    </Link>
+
+                    <DeleteButton
+                      id={task.id}
+                      taskName={task.taskName}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

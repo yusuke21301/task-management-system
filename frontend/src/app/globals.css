@@ -107,15 +107,22 @@ a:hover {
    タスク一覧テーブル
    ======================================== */
 
-/* 一覧表を親要素いっぱいに広げる。
-   border-collapse によりセル間の罫線を1本にまとめる。 */
+/* スマートフォンなど画面幅が狭い場合、
+   テーブルだけ横スクロールできるようにする。 */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 列が増えても無理に画面幅へ縮めず、
+   内容を読みやすい幅で表示する。 */
 .task-table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
 }
 
-/* 見出し・データセルの共通設定。
-   余白と罫線を付けて見やすくする。 */
+/* 見出し・データセルの共通設定。 */
 .task-table th,
 .task-table td {
   padding: 12px;
@@ -123,23 +130,23 @@ a:hover {
   text-align: left;
 }
 
-/* ヘッダー行を薄いグレーにして、
-   データ行と区別しやすくする。 */
+/* 見出しは途中で改行しない。 */
 .task-table th {
   background: #f3f4f6;
+  white-space: nowrap;
 }
 
-/* 行にマウスを重ねたとき背景色を変え、
-   現在見ている行を分かりやすくする。 */
 .task-table tbody tr:hover {
   background: #f9fafb;
 }
 
-/* 「編集」「削除」などの操作を横並びにする。 */
+/* 編集・削除を横並びのまま表示する。 */
 .actions {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 
