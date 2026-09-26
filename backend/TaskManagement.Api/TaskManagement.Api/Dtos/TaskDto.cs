@@ -13,4 +13,6 @@ public class TaskDto
     public int Status { get; set; }
 
     public DateOnly? PlannedDate { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 }

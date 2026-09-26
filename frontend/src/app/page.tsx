@@ -18,6 +18,18 @@ type Props = {
   }>;
 };
 
+function formatDateTime(value: string): string {
+  const date = new Date(value);
+
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
 export default async function Home({
   searchParams,
 }: Props) {
@@ -168,6 +180,7 @@ export default async function Home({
             <th>担当者</th>
             <th>ステータス</th>
             <th>予定日</th>
+            <th>更新日時</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -182,7 +195,10 @@ export default async function Home({
                 {statusLabels[task.status] ?? "不明"}
               </td>
               <td>
-                {task.plannedDate?.slice(0, 10) ?? "-"}
+                {task.plannedDate?.slice(0, 10).replaceAll("-", "/") ?? "-"}
+              </td>
+              <td>
+                {formatDateTime(task.updatedAt)}
               </td>
 
               <td>

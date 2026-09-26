@@ -5,4 +5,5 @@ export type Task = {
   operatorName: string;
   status: number;
   plannedDate: string | null;
+  updatedAt: string;
 };

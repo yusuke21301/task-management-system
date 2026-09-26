@@ -30,7 +30,8 @@ public class TasksController : ControllerBase
                     ? x.Operator.Name
                     : string.Empty,
                 Status = (int)x.Status,
-                PlannedDate = x.PlannedDate
+                PlannedDate = x.PlannedDate,
+                UpdatedAt = x.UpdatedAt
             })
             .ToListAsync();
 
@@ -51,7 +52,8 @@ public class TasksController : ControllerBase
                     ? x.Operator.Name
                     : string.Empty,
                 Status = (int)x.Status,
-                PlannedDate = x.PlannedDate
+                PlannedDate = x.PlannedDate,
+                UpdatedAt = x.UpdatedAt
             })
             .FirstOrDefaultAsync();
 
