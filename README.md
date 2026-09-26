@@ -6,6 +6,7 @@ C# / WinForms を中心に開発してきた状態から、Webアプリケーシ
 
 ## デモ
 フロントエンドはVercel、APIはRender、DBはNeonへデプロイしており、下記URLから実際に操作できます。
+
 初回のAPI起動で、数十秒～約1分待つ場合があります。
 
 公開URL：
@@ -28,6 +29,13 @@ PostgreSQL / Neon
 ```
 
 フロントエンドとバックエンドを分離し、Next.js から ASP.NET Core Web API を呼び出してタスクデータを操作します。
+
+## 技術記事
+
+今回開発したシステムの技術記事を書きURLに投稿しています。
+
+Qiita：
+https://qiita.com/yusuke21301/items/8df13e3267eefefd469f
 
 ## 主な機能
 
