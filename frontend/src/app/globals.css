@@ -1,7 +1,15 @@
+/* ========================================
+   全体共通
+   ======================================== */
+
+/* width / height に padding と border を含める。
+   レイアウト計算を分かりやすくするための基本設定。 */
 * {
   box-sizing: border-box;
 }
 
+/* 画面全体の基本デザイン。
+   背景色・文字色・フォントを共通化する。 */
 body {
   margin: 0;
   background: #f5f6f8;
@@ -9,6 +17,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* 各ページのメイン領域。
+   横幅を最大1000pxに制限して中央寄せし、
+   白いカードのような見た目にする。 */
 main {
   max-width: 1000px;
   margin: 40px auto;
@@ -17,20 +28,30 @@ main {
   border-radius: 8px;
 }
 
+/* ページタイトルの余白を調整する。 */
 h1 {
   margin-top: 0;
   margin-bottom: 24px;
 }
 
+/* 通常リンクの見た目。 */
 a {
   color: #2563eb;
   text-decoration: none;
 }
 
+/* マウスを重ねたときに下線を表示する。 */
 a:hover {
   text-decoration: underline;
 }
 
+
+/* ========================================
+   ページヘッダー
+   ======================================== */
+
+/* 「タスク管理」のタイトルと
+   「新規登録」ボタンを左右に配置する。 */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -38,8 +59,13 @@ a:hover {
   margin-bottom: 20px;
 }
 
-/* ボタン */
 
+/* ========================================
+   ボタン
+   ======================================== */
+
+/* 登録・更新・新規登録・検索などで
+   共通利用する基本ボタン。 */
 .button {
   display: inline-block;
   padding: 8px 16px;
@@ -52,31 +78,44 @@ a:hover {
   text-decoration: none;
 }
 
+/* ボタンにマウスを重ねたとき、
+   少し透明にして反応を分かりやすくする。 */
 .button:hover {
   opacity: 0.9;
   text-decoration: none;
 }
 
+/* 登録中・更新中など、
+   ボタンを操作できない状態の見た目。 */
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* 「クリア」などの補助操作用ボタン。 */
 .button-secondary {
   background: #6b7280;
 }
 
+/* 「削除」など注意が必要な操作用ボタン。 */
 .button-danger {
   background: #dc2626;
 }
 
-/* テーブル */
 
+/* ========================================
+   タスク一覧テーブル
+   ======================================== */
+
+/* 一覧表を親要素いっぱいに広げる。
+   border-collapse によりセル間の罫線を1本にまとめる。 */
 .task-table {
   width: 100%;
   border-collapse: collapse;
 }
 
+/* 見出し・データセルの共通設定。
+   余白と罫線を付けて見やすくする。 */
 .task-table th,
 .task-table td {
   padding: 12px;
@@ -84,36 +123,51 @@ a:hover {
   text-align: left;
 }
 
+/* ヘッダー行を薄いグレーにして、
+   データ行と区別しやすくする。 */
 .task-table th {
   background: #f3f4f6;
 }
 
+/* 行にマウスを重ねたとき背景色を変え、
+   現在見ている行を分かりやすくする。 */
 .task-table tbody tr:hover {
   background: #f9fafb;
 }
 
+/* 「編集」「削除」などの操作を横並びにする。 */
 .actions {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-/* フォーム */
 
+/* ========================================
+   新規登録・編集フォーム
+   ======================================== */
+
+/* フォームが横に広がりすぎないよう、
+   最大幅を500pxに制限する。 */
 .task-form {
   max-width: 500px;
 }
 
+/* 各入力項目の間に余白を付ける。 */
 .form-group {
   margin-bottom: 20px;
 }
 
+/* 項目名を入力欄の上に表示し、
+   太字にして分かりやすくする。 */
 .form-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
 }
 
+/* テキストボックスとプルダウンの
+   幅・余白・枠線などを統一する。 */
 .form-group input,
 .form-group select {
   width: 100%;
@@ -123,18 +177,23 @@ a:hover {
   font-size: 16px;
 }
 
+/* 入力欄を選択したとき、
+   枠線を青くしてフォーカス中であることを示す。 */
 .form-group input:focus,
 .form-group select:focus {
   border-color: #2563eb;
   outline: none;
 }
 
+/* 入力チェックエラーを赤文字で表示する。 */
 .form-error {
   margin-top: 6px;
   color: #dc2626;
   font-size: 14px;
 }
 
+/* 登録・更新ボタンなどの操作領域。
+   複数ボタンがある場合に横並びにする。 */
 .form-actions {
   display: flex;
   gap: 12px;
@@ -142,6 +201,13 @@ a:hover {
   margin-top: 24px;
 }
 
+
+/* ========================================
+   検索・絞り込みフォーム
+   ======================================== */
+
+/* タスク名・担当者・ステータス・検索ボタンを
+   PCでは横並びに配置する。 */
 .search-form {
   display: flex;
   gap: 16px;
@@ -152,22 +218,75 @@ a:hover {
   border-radius: 6px;
 }
 
+/* 検索条件の各項目が、
+   使用可能な横幅を均等に利用するようにする。 */
+.search-form > div {
+  flex: 1;
+}
+
+/* 検索条件の項目名を入力欄の上に表示する。 */
 .search-form label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
 }
 
+/* 検索用テキストボックス・プルダウンの見た目を統一する。
+   min-width: 0 により、狭い画面でも要素が縮められるようにする。 */
 .search-form input,
 .search-form select {
-  min-width: 160px;
+  width: 100%;
+  min-width: 0;
   padding: 8px 10px;
   border: 1px solid #bbb;
   border-radius: 6px;
   font-size: 14px;
 }
 
+/* 「検索」「クリア」ボタンを横並びにする。
+   flex: 0 0 auto により、検索条件入力欄のようには伸縮させない。 */
 .search-actions {
   display: flex;
   gap: 8px;
+  flex: 0 0 auto;
+}
+
+
+/* ========================================
+   スマートフォン向けレスポンシブ対応
+   ======================================== */
+
+/* 画面幅が600px以下の場合に適用する。
+   PCでは横並び、スマホでは縦並びに切り替える。 */
+@media (max-width: 600px) {
+
+  /* スマホでは画面端との余白を小さくし、
+     表示領域を広く使う。 */
+  main {
+    margin: 16px;
+    padding: 16px;
+  }
+
+  /* 検索条件を横並びから縦並びへ変更する。
+     横にはみ出すのを防ぐ。 */
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* 各検索条件をスマホ画面の横幅いっぱいにする。 */
+  .search-form > div {
+    width: 100%;
+  }
+
+  /* 検索・クリアボタンの領域も横幅いっぱいにする。 */
+  .search-actions {
+    width: 100%;
+  }
+
+  /* 検索・クリアボタンを均等な幅にする。 */
+  .search-actions .button {
+    flex: 1;
+    text-align: center;
+  }
 }
