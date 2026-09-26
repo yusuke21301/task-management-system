@@ -107,18 +107,23 @@ a:hover {
    タスク一覧テーブル
    ======================================== */
 
-/* スマートフォンなど画面幅が狭い場合、
-   テーブルだけ横スクロールできるようにする。 */
+/* テーブルを囲むコンテナ。
+   スマホではページ全体ではなく、
+   この領域の中だけ横スクロールできるようにする。 */
 .table-container {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* 列が増えても無理に画面幅へ縮めず、
-   内容を読みやすい幅で表示する。 */
+/* タスク一覧テーブル。
+   PCでは横幅いっぱいに表示し、
+   スマホでは列が細くなりすぎないよう最低幅を確保する。 */
 .task-table {
   width: 100%;
   min-width: 800px;
+  /* セル同士の罫線を1本にまとめる。 */
   border-collapse: collapse;
 }
 
@@ -267,9 +272,11 @@ a:hover {
    PCでは横並び、スマホでは縦並びに切り替える。 */
 @media (max-width: 600px) {
 
-  /* スマホでは画面端との余白を小さくし、
-     表示領域を広く使う。 */
+  /* スマホでは画面端との余白を小さくして、
+     表示領域を広く使う。
+     width を指定することで横方向にはみ出しにくくする。 */
   main {
+    width: calc(100% - 32px);
     margin: 16px;
     padding: 16px;
   }
@@ -284,6 +291,7 @@ a:hover {
   /* 各検索条件をスマホ画面の横幅いっぱいにする。 */
   .search-form > div {
     width: 100%;
+    min-width: 0;
   }
 
   /* 検索・クリアボタンの領域も横幅いっぱいにする。 */
@@ -295,5 +303,13 @@ a:hover {
   .search-actions .button {
     flex: 1;
     text-align: center;
+  }
+
+  /* スマホではタスク一覧の中だけ
+     左右にスクロールできるようにする。 */
+  .table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
   }
 }
