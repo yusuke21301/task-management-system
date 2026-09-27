@@ -12,6 +12,13 @@ C# / WinForms を中心に開発してきた状態から、Webアプリケーシ
 公開URL：
 https://task-management-system-sigma-seven.vercel.app/
 
+## 技術記事
+
+今回開発したシステムの技術記事を書きURLに投稿しています。
+
+Qiita：
+https://qiita.com/yusuke21301/items/8df13e3267eefefd469f
+
 ## 概要
 
 システム全体は次の構成です。
@@ -30,12 +37,19 @@ PostgreSQL / Neon
 
 フロントエンドとバックエンドを分離し、Next.js から ASP.NET Core Web API を呼び出してタスクデータを操作します。
 
-## 技術記事
+## 画面イメージ
 
-今回開発したシステムの技術記事を書きURLに投稿しています。
+### 作業一覧
 
-Qiita：
-https://qiita.com/yusuke21301/items/8df13e3267eefefd469f
+![作業一覧画面](docs/images/タスク一覧.png)
+
+### 新規登録
+
+![新規登録画面](docs/images/タスク新規登録.png)
+
+### 編集
+
+![編集画面](docs/images/タスク編集.png)
 
 ## 主な機能
 
