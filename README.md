@@ -14,7 +14,7 @@ https://task-management-system-sigma-seven.vercel.app/
 
 ## 技術記事
 
-今回開発したシステムの技術記事を書きURLに投稿しています。
+今回開発したシステムの技術記事を下記URLに投稿しています。
 
 Qiita：
 https://qiita.com/yusuke21301/items/8df13e3267eefefd469f
